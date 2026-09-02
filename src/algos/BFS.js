@@ -18,7 +18,7 @@ export function BFS(grid, startNode, finishNode) {
     visitedNodesInOrder.push(startNode)
     queue.push(startNode);
     //2. Loop on the queue as long as it's not empty.
-    while(queue != null){
+    while (queue.length) {
         //1. Get and remove the node at the top of the queue(current).
          let i = queue.shift();
         //2. For every non-visited child of the current node, do the following:
@@ -36,8 +36,9 @@ export function BFS(grid, startNode, finishNode) {
                 }
         //3. Otherwise, push it to the queue.
                 else queue.push(neighbor);
-                
+
         }}
+    return visitedNodesInOrder;
 }
 
 function getUnvisitedNeighbors(node, grid) {

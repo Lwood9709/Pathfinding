@@ -1,39 +1,200 @@
+.visualizer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.control-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 14px;
+    padding: 12px 18px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+}
+
+.cluster {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.cluster-label {
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.coord-field {
+    width: 78px;
+}
+
+.timer {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.1;
+}
+
+.timer-value {
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+}
+
+.timer-caption {
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+    padding: 24px 18px 48px;
+}
+
+.grid-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
 .grid {
-    margin: 100px 0 0;
-    
-  }
-
-.header {
-  display: flex;
-  padding: 30px;
-  text-align: center;
-  background: lightblue;
-  color: gray;
-  font-size: 30px;
-  border-bottom: 10px black;
-  flex-wrap: wrap;
- 
+    display: inline-flex;
+    flex-direction: column;
+    padding: 8px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
 }
 
-.fields{
-  align-items: flex-start;
-  flex: auto;
-  width: 100%;
+.grid-row {
+    display: flex;
 }
 
-.buttons{
-  display: flex;
-  padding: 60px;
-  text-align: center;
-  background: lightblue;
-  color: gray;
-  font-size: 15px;
-  border-bottom: 10px black;
-  margin: 0 auto;
-  column-gap: 50px;
+.panel {
+    width: 300px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.label{
-  font-size: large;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    padding: 12px 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+}
+
+.swatch.visited-swatch {
+    background-color: var(--visited);
+}
+
+.stats {
+    padding: 12px 14px 14px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.stats-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stats-head h2 {
+    margin: 0;
+    font-size: 13px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.stats-empty {
+    margin: 10px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.stats-table {
+    width: 100%;
+    margin-top: 8px;
+    border-collapse: collapse;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+.stats-table th {
+    text-align: right;
+    padding: 4px 0;
+    font-weight: 500;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+}
+
+.stats-table th:first-child,
+.stats-table td:first-child {
+    text-align: left;
+}
+
+.stats-table td {
+    text-align: right;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(41, 51, 74, 0.5);
+}
+
+.stats-table tr.no-path td {
+    color: var(--muted);
+}
+
+.tag {
+    margin-left: 6px;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--finish);
+    border: 1px solid var(--finish);
+}
+
+.stats-note {
+    margin: 10px 0 0;
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--muted);
 }

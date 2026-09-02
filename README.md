@@ -4,7 +4,18 @@ This project was built to experiment with implementation of various pathfinding 
 
 ## Available Algorithms
 
-Breadth first search, Depth First Search
+Breadth First Search, Depth First Search, Dijkstra, A\*
+
+## Comparing algorithms
+
+Each run records how long the algorithm itself took, how many nodes it
+visited, and how long the resulting path is. The last six runs stay in the
+Runs table so you can compare algorithms without reloading. The big timer in
+the header counts animation wall clock, which is fixed at 10ms per visited
+node, so it is a visual readout rather than a benchmark.
+
+Moving the start or finish and pressing Submit keeps your walls. Reset Grid
+clears everything.
 
 ### Tech stack
 
@@ -12,7 +23,6 @@ Built using react, and class components with vanilla css. MaterialUI for interac
 
 #### Next steps
 
-1. Add weights for Dijkstra and a* (BFS and DFS cannot factor in weights).
-
-2. Improve the UI! And to be able to save paths or things like that on the page without having to reload. A timer would be nice too so you can compare two algos.
-3.Diagonal movement for the a* algorithm
+1. Add weights for Dijkstra and a\* (BFS and DFS cannot factor in weights).
+2. Diagonal movement for the a\* algorithm.
+3. Maze generation, so there is something harder than hand-drawn walls to solve.

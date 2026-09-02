@@ -1,60 +1,63 @@
 .node {
-    width: 25px;
-    height: 25px;
-    outline: 1px solid rgb(175, 216, 248);
-    display: inline-block;
-    border: 1px solid black;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 20px;
-  }
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    background-color: transparent;
+}
 
-  .finish-node {
-    background-color: red;
-  }
-  
-  .start-node {
-    background-color: green;
-  }
+.start-node {
+    background-color: var(--start);
+}
 
-  .wall-node {
-    background-color: black;
-  }
-  .node-visited{
+.finish-node {
+    background-color: var(--finish);
+}
+
+.wall-node {
+    background-color: var(--wall);
+    border-color: #10182a;
+}
+
+.node-visited {
     animation-name: visitedAnimation;
-    animation-duration: 1.5s;
+    animation-duration: 1.2s;
     animation-timing-function: ease-out;
-    animation-delay: 0;
-    animation-direction: alternate;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    animation-play-state: running;
-  }
+}
 
-  @keyframes visitedAnimation {
+@keyframes visitedAnimation {
     0% {
-      transform: scale(0.3);
-      background-color: rgba(150, 0, 66, 1.75);
-      border-radius: 100%;
+        transform: scale(0.3);
+        background-color: #0e7490;
+        border-radius: 50%;
     }
-  
-    50% {
-      transform: scale(1.2);
-      background-color: rgba(150, 150, 0, 0.95);
-    }
-  
-    75% {
-     
-      background-color: rgba(150, 200, 159, 0.75);
-    }
-  
-    100% {
-      transform: scale(.5);
-      background-color: rgba(156, 187, 18, 0.5);
-    }
-  }
-  .node-shortest-path{
-    transform: scale(.75);
-    background-color: rgb(44, 11, 161);
-  }
 
+    50% {
+        transform: scale(1.15);
+        background-color: #0ea5e9;
+    }
+
+    75% {
+        background-color: #38bdf8;
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: var(--visited);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .node-visited {
+        animation: none;
+        background-color: var(--visited);
+    }
+}
+
+.node-shortest-path {
+    background-color: var(--path);
+    border-color: #fde68a;
+    box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
+}

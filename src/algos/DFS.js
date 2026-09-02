@@ -18,7 +18,7 @@ export function DFS(grid, startNode, finishNode) {
     visitedNodesInOrder.push(startNode)
     stack.push(startNode);
     //2. Loop on the queue as long as it's not empty.
-    while(stack != null){
+    while (stack.length) {
         //1. Get and remove the node at the top of the queue(current).
          let i = stack.pop();
         //2. For every non-visited child of the current node, do the following:
@@ -36,8 +36,9 @@ export function DFS(grid, startNode, finishNode) {
                 }
         //3. Otherwise, push it to the queue.
                 else stack.push(neighbor);
-                
+
         }}
+    return visitedNodesInOrder;
 }
 
 function getUnvisitedNeighbors(node, grid) {
@@ -57,7 +58,6 @@ function getUnvisitedNeighbors(node, grid) {
       nodesInShortestPathOrder.unshift(currentNode);
       currentNode = currentNode.previousNode;
     }
-    console.log(nodesInShortestPathOrder);
     return nodesInShortestPathOrder;
   }
 

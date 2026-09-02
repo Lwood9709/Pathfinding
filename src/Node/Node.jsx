@@ -1,38 +1,35 @@
-import { isCursorAtStart } from '@testing-library/user-event/dist/utils';
-import React, {Component} from 'react';
+import React, { PureComponent } from "react";
 
-import './Node.css';
+import "./Node.css";
 
-export default class Node extends Component { 
-    render(){
+export function nodeTypeClass({ isFinish, isStart, isWall }) {
+    if (isFinish) return "finish-node";
+    if (isStart) return "start-node";
+    if (isWall) return "wall-node";
+    return "";
+}
+
+export default class Node extends PureComponent {
+    render() {
         const {
-        col,
-        isFinish,
-        isStart,
-        isWall,
-        row,
-        onMouseDown,
-        onMouseEnter,
-        onMouseUp,
-    } = this.props;
-        const typeClassName = isFinish
-        ? 'finish-node'
-        : isStart 
-        ? 'start-node'
-        : isWall
-        ? 'wall-node'
-        : '';
-        
-        
-        
-        return(
-     <div
-        id ={`node-${row}-${col}`}
-        className={`node ${typeClassName}`}
-        onMouseDown={() => onMouseDown(row, col)}
-        onMouseEnter={() => onMouseEnter(row, col)}
-        onMouseUp={() => onMouseUp()}></div>
+            col,
+            isFinish,
+            isStart,
+            isWall,
+            row,
+            onMouseDown,
+            onMouseEnter,
+            onMouseUp,
+        } = this.props;
+
+        return (
+            <div
+                id={`node-${row}-${col}`}
+                className={`node ${nodeTypeClass({ isFinish, isStart, isWall })}`}
+                onMouseDown={() => onMouseDown(row, col)}
+                onMouseEnter={() => onMouseEnter(row, col)}
+                onMouseUp={() => onMouseUp()}
+            ></div>
         );
     }
 }
-
