@@ -25,11 +25,11 @@ const ALGORITHMS = [
 ];
 
 const LEGEND = [
-    { className: "start-node", label: "Start" },
-    { className: "finish-node", label: "Finish" },
-    { className: "wall-node", label: "Wall" },
-    { className: "visited-swatch", label: "Visited" },
-    { className: "node-shortest-path", label: "Shortest path" },
+    { className: "swatch-start", label: "Start" },
+    { className: "swatch-finish", label: "Finish" },
+    { className: "swatch-wall", label: "Wall" },
+    { className: "swatch-visited", label: "Visited" },
+    { className: "swatch-path", label: "Shortest path" },
 ];
 
 export default class PFVisualizer extends Component {
@@ -314,13 +314,12 @@ export default class PFVisualizer extends Component {
         this.setState({ grid });
     };
 
-    renderCoordField(name, label) {
+    renderCoordField(name) {
         const limit = name.endsWith("_ROW") ? MAX_ROW : MAX_COL;
         return (
             <TextField
                 className="coord-field"
                 name={name}
-                label={label}
                 variant="outlined"
                 type="number"
                 size="small"
@@ -336,38 +335,35 @@ export default class PFVisualizer extends Component {
         const isRunning = phase === "running";
 
         return (
-            <div className="visualizer">
-                <header className="control-bar">
-                    <div className="cluster">
-                        <span className="cluster-label">Start</span>
-                        {this.renderCoordField("START_NODE_ROW", "Row")}
-                        {this.renderCoordField("START_NODE_COL", "Col")}
-                    </div>
-                    <div className="cluster">
-                        <span className="cluster-label">Finish</span>
-                        {this.renderCoordField("FINISH_NODE_ROW", "Row")}
-                        {this.renderCoordField("FINISH_NODE_COL", "Col")}
-                    </div>
-                    <div className="cluster">
+            <>
+                <div className="header">
+                    <div className="fields">
+                        <span className="field-label">Start:</span>
+                        {this.renderCoordField("START_NODE_ROW")}
+                        {this.renderCoordField("START_NODE_COL")}
+                        <span className="field-label">Finish:</span>
+                        {this.renderCoordField("FINISH_NODE_ROW")}
+                        {this.renderCoordField("FINISH_NODE_COL")}
                         <Button
-                            variant="outlined"
+                            color="success"
                             onClick={this.onSubmitForm}
                             disabled={isRunning}
                         >
                             Submit
                         </Button>
                         <Button
-                            variant="outlined"
+                            color="success"
                             onClick={this.redoGrid}
                             disabled={isRunning}
                         >
                             Reset Grid
                         </Button>
                     </div>
-                    <div className="cluster">
+                    <div className="buttons">
                         {ALGORITHMS.map((algorithm) => (
                             <Button
                                 key={algorithm.key}
+                                color="secondary"
                                 variant="contained"
                                 onClick={() => this.runAlgorithm(algorithm)}
                                 disabled={isRunning}
@@ -375,111 +371,88 @@ export default class PFVisualizer extends Component {
                                 {algorithm.label}
                             </Button>
                         ))}
-                    </div>
-                    <div className="timer">
-                        <span className="timer-value">
+                        <span className="timer">
                             {(elapsedMs / 1000).toFixed(2)}s
                         </span>
-                        <span className="timer-caption">animation</span>
                     </div>
-                </header>
+                </div>
 
-                <main className="board">
-                    <div className="grid-wrap">
-                        <div className="grid">
-                            {grid.map((row, rowIdx) => (
-                                <div className="grid-row" key={rowIdx}>
-                                    {row.map((node, nodeIdx) => (
-                                        <Node
-                                            key={nodeIdx}
-                                            col={node.col}
-                                            row={node.row}
-                                            isStart={node.isStart}
-                                            isFinish={node.isFinish}
-                                            isWall={node.isWall}
-                                            onMouseDown={this.handleMouseDown}
-                                            onMouseEnter={this.handleMouseEnter}
-                                            onMouseUp={this.handleMouseUp}
-                                        ></Node>
-                                    ))}
-                                </div>
+                <div className="grid">
+                    {grid.map((row, rowIdx) => (
+                        <div className="grid-row" key={rowIdx}>
+                            {row.map((node, nodeIdx) => (
+                                <Node
+                                    key={nodeIdx}
+                                    col={node.col}
+                                    row={node.row}
+                                    isStart={node.isStart}
+                                    isFinish={node.isFinish}
+                                    isWall={node.isWall}
+                                    onMouseDown={this.handleMouseDown}
+                                    onMouseEnter={this.handleMouseEnter}
+                                    onMouseUp={this.handleMouseUp}
+                                ></Node>
                             ))}
                         </div>
+                    ))}
+                </div>
+
+                <div className="legend">
+                    {LEGEND.map((item) => (
+                        <span className="legend-item" key={item.label}>
+                            <span className={`swatch ${item.className}`}></span>
+                            {item.label}
+                        </span>
+                    ))}
+                </div>
+
+                <div className="stats">
+                    <div className="stats-head">
+                        <h2>Runs</h2>
+                        <Button
+                            size="small"
+                            onClick={this.clearRuns}
+                            disabled={runs.length === 0}
+                        >
+                            Clear
+                        </Button>
                     </div>
-
-                    <aside className="panel">
-                        <section className="legend">
-                            {LEGEND.map((item) => (
-                                <span className="legend-item" key={item.label}>
-                                    <span
-                                        className={`swatch ${item.className}`}
-                                    ></span>
-                                    {item.label}
-                                </span>
-                            ))}
-                        </section>
-
-                        <section className="stats">
-                            <div className="stats-head">
-                                <h2>Runs</h2>
-                                <Button
-                                    size="small"
-                                    onClick={this.clearRuns}
-                                    disabled={runs.length === 0}
-                                >
-                                    Clear
-                                </Button>
-                            </div>
-                            {runs.length === 0 ? (
-                                <p className="stats-empty">
-                                    Run an algorithm to compare results.
-                                </p>
-                            ) : (
-                                <table className="stats-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Algorithm</th>
-                                            <th>Time (ms)</th>
-                                            <th>Visited</th>
-                                            <th>Path</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {runs.map((run, index) => (
-                                            <tr
-                                                key={`${run.key}-${index}`}
-                                                className={run.found ? "" : "no-path"}
-                                            >
-                                                <td>
-                                                    {run.label}
-                                                    {run.found ? null : (
-                                                        <span className="tag">
-                                                            no path
-                                                        </span>
-                                                    )}
-                                                </td>
-                                                <td>{run.computeMs.toFixed(2)}</td>
-                                                <td>{run.nodesVisited}</td>
-                                                <td>
-                                                    {run.found
-                                                        ? run.pathLength
-                                                        : "-"}
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            )}
-                            <p className="stats-note">
-                                The header timer counts animation wall clock at{" "}
-                                {VISIT_STEP_MS}ms per visited node, so it is a
-                                visual readout, not a benchmark. Time (ms) above
-                                is the real measurement.
-                            </p>
-                        </section>
-                    </aside>
-                </main>
-            </div>
+                    {runs.length === 0 ? (
+                        <p className="stats-empty">
+                            Run an algorithm to compare results.
+                        </p>
+                    ) : (
+                        <table className="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Algorithm</th>
+                                    <th>Time (ms)</th>
+                                    <th>Visited</th>
+                                    <th>Path</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {runs.map((run, index) => (
+                                    <tr
+                                        key={`${run.key}-${index}`}
+                                        className={run.found ? "" : "no-path"}
+                                    >
+                                        <td>
+                                            {run.label}
+                                            {run.found ? "" : " (no path)"}
+                                        </td>
+                                        <td>{run.computeMs.toFixed(2)}</td>
+                                        <td>{run.nodesVisited}</td>
+                                        <td>
+                                            {run.found ? run.pathLength : "-"}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
+            </>
         );
     }
 }
