@@ -1,3 +1,6 @@
+# Live site
+https://lwood9709.github.io/Pathfinding/
+
 # Pathfinding Visualizer
 
 This project was built to experiment with implementation of various pathfinding algorithms
@@ -23,6 +26,7 @@ Built using react, and class components with vanilla css. MaterialUI for interac
 
 #### Next steps
 
-1. Add weights for Dijkstra and a\* (BFS and DFS cannot factor in weights).
-2. Diagonal movement for the a\* algorithm.
-3. Maze generation, so there is something harder than hand-drawn walls to solve.
+1. Innacuricies with walls added.
+2. Add weights for Dijkstra and a\* (BFS and DFS cannot factor in weights).
+3. Diagonal movement for the a\* algorithm.
+4. Maze generation, so there is something harder than hand-drawn walls to solve.
